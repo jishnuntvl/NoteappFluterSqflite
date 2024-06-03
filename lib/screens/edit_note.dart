@@ -17,18 +17,20 @@ class EditNote extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Edit Note')),
+      appBar: AppBar(backgroundColor: Colors.blue,title: Text("Edit Notes"),),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
             TextField(
               controller: _titleController,
-              decoration: InputDecoration(labelText: 'Title'),
+              decoration: InputDecoration(border: OutlineInputBorder(),labelText: 'Title'),
             ),
+            SizedBox(height: 20),
             TextField(
               controller: _descriptionController,
-              decoration: InputDecoration(labelText: 'Description'),
+              maxLines: 5,
+              decoration: InputDecoration(border: OutlineInputBorder(),labelText: 'Description'),
             ),
             SizedBox(height: 20),
             ElevatedButton(

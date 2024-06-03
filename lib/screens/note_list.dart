@@ -13,39 +13,32 @@ class NoteList extends StatelessWidget {
         child: ValueListenableBuilder(
           valueListenable: noteListNotifier,
           builder: (context, List<Note> notes, child) {
-            return ListView.builder(
-              itemCount: notes.length,
-              itemBuilder: (context, index) {
-                final note = notes[index];
-                return ListTile(
-                  leading: CircleAvatar(backgroundColor: Colors.green,child: Text(note.id.toString()),),
-                  title: Text(note.title),
-                  subtitle: Text(note.description),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.edit),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => EditNote(note: note),
-                            ),
-                          );
-                        },
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.delete),
-                        onPressed: () {
-                          deleteNote(note.id!);
-                        },
-                      ),
-                    ],
-                  ),
-                );
-              },
-            );
+            return ListView.separated(
+        itemBuilder: (ctx,index){
+          final note = notes[index];
+          return ListTile(
+            title: Text(note.title),
+            subtitle: Text(note.description),
+            onTap: () 
+            {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditNote(note: note),
+                ),
+              );
+            },
+            trailing:IconButton(onPressed: (){deleteNote(note.id!);}, 
+            icon: Icon(Icons.delete,color: Colors.red,)),
+            leading: CircleAvatar(
+              radius: 30,
+              backgroundColor: Colors.green,
+              child: Text(note.id.toString()),
+            ),
+          );
+        }, 
+        separatorBuilder: ((context, index) => Divider()), 
+        itemCount: notes.length);
           },
         ),
       ),
@@ -61,3 +54,4 @@ class NoteList extends StatelessWidget {
     );
   }
 }
+
